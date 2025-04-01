@@ -19,23 +19,18 @@
     "contributes": {
         "languages": [
             {
-                "id": "ciena",
-                "aliases": [
-                    "Ciena",
-                    "ciena"
-                ],
+                "id": "saos10",
                 "extensions": [
-                    ".saos10",
-                    ".saos10.txt"
+                    ".saos10"
                 ],
                 "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [
             {
-                "language": "ciena",
-                "scopeName": "text.ciena",
-                "path": "./syntaxes/ciena.tmLanguage"
+                "language": "saos10",
+                "scopeName": "source.ciena.saos10",
+                "path": "./syntaxes/saos10.tmLanguage"
             }
         ]
     }

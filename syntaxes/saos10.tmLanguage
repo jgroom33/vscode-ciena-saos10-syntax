@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>saos10</string>
+	</array>
+	<key>name</key>
+	<string>Ciena SAOS10</string>
+	<key>patterns</key>
+	<array>
+		<!-- Keywords -->
+		<dict>
+			<key>match</key>
+			<string>\b(enable|disable|exit|config|set|add|remove|delete|true|false|on|off)\b</string>
+			<key>name</key>
+			<string>keyword.control.saos10</string>
+		</dict>
+
+		<!-- Commands -->
+		<dict>
+			<key>match</key>
+			<string>\b(cfm-global-config|pm|fds|hello-params|pkix|tls-service-profiles|oc-if:interfaces|classifiers|fps|bfd|maintenance-domain|dhcp-client|dhcpv6-client|isis|license-management-config|management-plane|nacm|rib|sat|system|telemetry-system|twamp)\b</string>
+			<key>name</key>
+			<string>entity.name.function.saos10</string>
+		</dict>
+
+		<!-- Parameters -->
+		<dict>
+			<key>match</key>
+			<string>\b(admin-state|fd|vlan-stack|push-pcp|push-vid|cipher-suites|elliptic-curves|check-cert-expiry|tls-profile-name|tls-peer-auth-profile-name|tls-certificate-name|ip|prefix-length|mtu|type|role|underlay-binding|statistics-collection|desired-min-tx-interval|required-min-rx-interval|md-level|name-type|id-permission|requested-lease-time|option-enable|dynamic-hostname|level-type|cspf-flag|overload|microloop-avoidance|rib-update-delay|hostname|motd-banner|contact|location|tls-service-profile|sequence|pcp|throughput|frameloss|latency|pdv)\b</string>
+			<key>name</key>
+			<string>variable.parameter.saos10</string>
+		</dict>
+
+		<!-- Values -->
+		<dict>
+			<key>match</key>
+			<string>\b(true|false|enable|disable|on|off|[0-9]+|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(/\d{1,2})?|[a-zA-Z0-9\-_:]+)\b</string>
+			<key>name</key>
+			<string>constant.language.saos10</string>
+		</dict>
+
+		<!-- Comments -->
+		<dict>
+			<key>match</key>
+			<string>^#.*$</string>
+			<key>name</key>
+			<string>comment.line.bang.saos10</string>
+		</dict>
+
+		<!-- Strings -->
+		<dict>
+			<key>match</key>
+			<string>"[^"]*"</string>
+			<key>name</key>
+			<string>string.quoted.double.saos10</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.ciena.saos10</string>
+</dict>
+</plist>

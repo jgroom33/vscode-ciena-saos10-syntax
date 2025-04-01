@@ -1,0 +1,147 @@
+cfm-global-config admin-state enable
+pm global-config admin-state enabled
+fds fd "remote-fd" pfg-profile "default-pfg-profile"
+fds fd "remote-fd" initiate-l2-transform vlan-stack "1" push-pcp map push-vid 127
+fds fd "fd2"
+exit
+exit
+fds fd "fd3"
+exit
+exit
+hello-params "tls-profile" cipher-suites cipher-suite tlscmn:ecdhe-rsa-with-aes-128-cbc-sha
+hello-params "tls-profile" elliptic-curves elliptic-curve ciena-tls-types:secp256r1
+hello-params "mcp-profile" cipher-suites cipher-suite tlscmn:ecdhe-rsa-with-aes-128-cbc-sha
+hello-params "mcp-profile" elliptic-curves elliptic-curve ciena-tls-types:secp256r1
+hello-params "mcp-tls-commissioning" cipher-suites cipher-suite tlscmn:ecdhe-rsa-with-aes-128-gcm-sha256
+hello-params "mcp-tls-commissioning" elliptic-curves elliptic-curve ciena-tls-types:secp256r1
+pkix peer-auth-profiles peer-auth-profile "peer-auth-profile" check-cert-expiry true
+pkix peer-auth-profiles peer-auth-profile "mcp-auth-profile" check-cert-expiry true
+tls-service-profiles "test" tls-profile-name "tls-profile" tls-peer-auth-profile-name "peer-auth-profile" tls-certificate-name "testCert"
+tls-service-profiles "mcp" tls-profile-name "mcp-profile" tls-peer-auth-profile-name "mcp-auth-profile" tls-certificate-name "mcp-server"
+tls-service-profiles "mcp-commissioning" tls-profile-name "mcp-tls-commissioning" tls-peer-auth-profile-name "mcp-auth-profile" tls-certificate-name "mcp-client"
+oc-if:interfaces interface "mgmtbr0" ipv4 addresses address "10.92.44.71" config ip "10.92.44.71" prefix-length 24
+oc-if:interfaces interface "1" config lldp-port-config notify true
+oc-if:interfaces interface "2" config lldp-port-config notify true
+oc-if:interfaces interface "3" config lldp-port-config notify true
+oc-if:interfaces interface "4" config lldp-port-config notify true
+oc-if:interfaces interface "5" config port-speed 1Gb
+oc-if:interfaces interface "5" config lldp-port-config notify true
+oc-if:interfaces interface "6" config port-speed 1Gb
+oc-if:interfaces interface "6" config lldp-port-config notify true
+oc-if:interfaces interface "7" config lldp-port-config notify true
+oc-if:interfaces interface "8" config lldp-port-config notify true
+oc-if:interfaces interface "9" config lldp-port-config notify true
+oc-if:interfaces interface "10" config lldp-port-config notify true
+oc-if:interfaces interface "11" config lldp-port-config notify true
+oc-if:interfaces interface "12" config lldp-port-config notify true
+oc-if:interfaces interface "13" config lldp-port-config notify true
+oc-if:interfaces interface "14" config lldp-port-config notify true
+oc-if:interfaces interface "15" config lldp-port-config notify true
+oc-if:interfaces interface "16" config lldp-port-config notify true
+oc-if:interfaces interface "17" config lldp-port-config notify true
+oc-if:interfaces interface "18" config lldp-port-config notify true
+oc-if:interfaces interface "19" config lldp-port-config notify true
+oc-if:interfaces interface "20" config lldp-port-config notify true
+oc-if:interfaces interface "21" config lldp-port-config notify true
+oc-if:interfaces interface "22" config lldp-port-config notify true
+oc-if:interfaces interface "23" config lldp-port-config notify true
+oc-if:interfaces interface "24" config lldp-port-config notify true
+oc-if:interfaces interface "25" config lldp-port-config notify true
+oc-if:interfaces interface "26" config lldp-port-config notify true
+oc-if:interfaces interface "27" config lldp-port-config notify true
+oc-if:interfaces interface "28" config lldp-port-config notify true
+oc-if:interfaces interface "29" config lldp-port-config notify true
+oc-if:interfaces interface "30" config lldp-port-config notify true
+oc-if:interfaces interface "31" config lldp-port-config notify true
+oc-if:interfaces interface "32" config lldp-port-config notify true
+oc-if:interfaces interface "33" config lldp-port-config notify true
+oc-if:interfaces interface "34" config lldp-port-config notify true
+oc-if:interfaces interface "35" config lldp-port-config notify true
+oc-if:interfaces interface "36" config lldp-port-config notify true
+oc-if:interfaces interface "remote" config name "remote" mtu 1500 description "in band remote management interface" role cn-if:management
+oc-if:interfaces interface "remote" config underlay-binding config fd "remote-fd"
+oc-if:interfaces interface "intf2_10G" config name "intf2_10G" mtu 9136 type point-to-point
+oc-if:interfaces interface "intf2_10G" config underlay-binding config fd "fd2"
+oc-if:interfaces interface "intf2_10G" ipv4 addresses address "172.168.34.1" config ip "172.168.34.1" prefix-length 31
+oc-if:interfaces interface "intf3_10G" config name "intf3_10G" mtu 9136 type point-to-point
+oc-if:interfaces interface "intf3_10G" config underlay-binding config fd "fd3"
+oc-if:interfaces interface "intf3_10G" ipv4 addresses address "172.168.45.0" config ip "172.168.45.0" prefix-length 31
+oc-if:interfaces interface "lb0" config name "lb0" mtu 1500 type loopback
+oc-if:interfaces interface "lb0" ipv4 addresses address "192.168.0.4" config ip "192.168.0.4" prefix-length 32
+classifiers classifier "default-vid-127" filter-entry "classifier:vtag-stack" vtags "1" vlan-id 127
+classifiers classifier "vlan2" filter-entry "classifier:vtag-stack" vtags "1" vlan-id 2
+classifiers classifier "vlan3" filter-entry "classifier:vtag-stack" vtags "1" vlan-id 3
+fps fp "fp2" fd-name "fd2" logical-port "2" stats-collection on classifier-list "vlan2"
+fps fp "fp2" egress-l2-transform "push-2" vlan-stack "1" push-vid 2
+fps fp "fp3" fd-name "fd3" logical-port "3" stats-collection on classifier-list "vlan3"
+fps fp "fp3" egress-l2-transform "push-3" vlan-stack "1" push-vid 3
+bfd profiles ip-bfd-profile "IP-BFD-10X3" desired-min-tx-interval 10000 required-min-rx-interval 10000
+bfd profiles ip-bfd-profile "IP-BFD-3.3X3" desired-min-tx-interval 3300 required-min-rx-interval 3300
+bfd profiles ip-bfd-profile "MH-BFD-10X3" desired-min-tx-interval 10000 required-min-rx-interval 10000
+bfd profiles ip-bfd-profile "MH-BFD-50X3" desired-min-tx-interval 50000 required-min-rx-interval 50000
+bfd session-config-entry ip single-hop ipv4 "intf2_10G" profile "IP-BFD-10X3" statistics-collection on
+bfd session-config-entry ip single-hop ipv4 "intf3_10G" profile "IP-BFD-10X3" statistics-collection on
+maintenance-domain "md0" name-type character-string name "md0" md-level 0 mhf-creation none id-permission chassis
+maintenance-domain "md1" name-type character-string name "md1" md-level 1 mhf-creation none id-permission chassis
+maintenance-domain "md2" name-type character-string name "md2" md-level 2 mhf-creation none id-permission chassis
+maintenance-domain "md3" name-type character-string name "md3" mhf-creation none id-permission chassis
+maintenance-domain "md4" name-type character-string name "md4" md-level 4 mhf-creation none id-permission chassis
+maintenance-domain "md5" name-type character-string name "md5" md-level 5 mhf-creation none id-permission chassis
+maintenance-domain "md6" name-type character-string name "md6" md-level 6 mhf-creation none id-permission chassis
+maintenance-domain "md7" name-type character-string name "md7" md-level 7 mhf-creation none id-permission chassis
+dhcp-client client "mgmtbr0" admin-enable false
+dhcp-client client "remote" admin-enable true requested-lease-time 3600
+dhcp-client client "remote" option-enable time-offset true router true domain-name-server true log-server true host-name true domain-name true ntp-servers true lease-time false tftp-server-name true bootfile-name true vivsi true
+dhcpv6-client client "remote" option-enable
+exit
+exit
+exit
+isis instance "CORE" dynamic-hostname true level-type level-2 cspf-flag true net "49.0000.1921.6800.0004.00"
+isis instance "CORE" overload on-startup wait-for-bgp
+isis instance "CORE" microloop-avoidance enable true rib-update-delay 13000
+license-management-config license-server-config "10.75.1.37"
+exit
+exit
+management-plane server-applications application "web-gui" enable true
+nacm rule-list "sec-exec-deny" rule "secure-erase" rpc-name "secure-erase" access-operations "exec" action deny
+nacm rule-list "sec-exec-deny" rule "fips-mode" path "/oc-sys:system/config/security-mode" access-operations "create update delete" action deny
+rib vrf "default" ipv4 "10.0.0.0/8" next-hop "10.92.44.1"
+exit
+exit
+exit
+exit
+sat emix-sequence "y1564" sequence "abceg"
+sat emix-sequence "y1564-v6" sequence "vbceg"
+sat emix-sequence "y1564-qinq-v4" sequence "wbceg"
+sat emix-sequence "y1564-qinq-v6" sequence "xbceg"
+sat emix-sequence "simple" sequence "aaaaaaauuuugg"
+sat emix-sequence "simple-v6" sequence "vvvvvvvuuuugg"
+sat emix-sequence "simple-qinq-v4" sequence "wwwwwwwuuuugg"
+sat emix-sequence "simple-qinq-v6" sequence "xxxxxxxuuuugg"
+sat emix-sequence "firewall" sequence "g"
+sat emix-sequence "tcp" sequence "bbbbbbbuuuugg"
+sat emix-sequence "ipv6" sequence "vvvvvvduuuugg"
+sat emix-sequence "ipv6-qinq" sequence "xxxxxxduuuugg"
+sat kpi-profile "KPI_noLoss_10msec" pcp "0" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "1" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "2" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "3" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "4" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "5" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "6" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" pcp "7" throughput 1 frameloss 1 latency 10 pdv 2
+sat kpi-profile "KPI_noLoss_10msec" untagged throughput 1 frameloss 1 latency 10 pdv 2
+system config hostname "PE4" motd-banner "\n#################################################\nSuccessfully logged into 5164-7\nTo reset the device to base config: `system reset factory-defaults`\n  note: after the device receives a DHCP address during reset it will be configured with static IP and hostname\nTo watch the boot process via console: `telnet 10.92.43.132 6011`\nDO NOT CHANGE THE PASSWORD OF THE DIAG USER\nDO NOT CHANGE THE INSTALLED SOFTWARE WITHOUT PRIOR APPROVAL FROM THE NATE TEAM (list.nate@ciena.com)\n#################################################\nLOOPBACK exists between port 5 and 6 to assist with service testing\n#################################################\n      " contact "list.nate@ciena.com" location "Alpharetta"
+system ntp associations remote-ntp-server server-entry "10.92.44.130"
+exit
+exit
+exit
+exit
+exit
+telemetry-system server config tls-service-profile "mcp"
+twamp server
+exit
+exit
+twamp session-reflector
+exit
+exit

@@ -1,37 +1,43 @@
 {
-    "name": "saos10",
-    "displayName": "Ciena SAOS 10 Syntax",
-    "description": "Ciena SAOS 10 Syntax Highlighter",
-    "version": "0.0.1",
-    "publisher": "jgroom",
-    "icon": "images/ciena.png",
-    "license": "MIT",
-    "engines": {
-        "vscode": "^1.75.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jgroom33/vscode-ciena-saos10-syntax.git"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "saos10",
-                "extensions": [
-                    ".saos10"
-                ],
-                "configuration": "./language-configuration.json"
-            }
+  "name": "saos10",
+  "displayName": "Ciena SAOS 10 Syntax",
+  "description": "Ciena SAOS 10 Syntax Highlighter",
+  "version": "0.0.2",
+  "publisher": "jgroom",
+  "icon": "images/ciena.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgroom33/vscode-ciena-saos10-syntax.git"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "saos10",
+    "ciena",
+    "syntax",
+    "10x"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "saos10",
+        "extensions": [
+          ".saos10"
         ],
-        "grammars": [
-            {
-                "language": "saos10",
-                "scopeName": "source.ciena.saos10",
-                "path": "./syntaxes/saos10.tmLanguage"
-            }
-        ]
-    }
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "saos10",
+        "scopeName": "source.ciena.saos10",
+        "path": "./syntaxes/saos10.tmLanguage"
+      }
+    ]
+  }
 }
